@@ -1,19 +1,32 @@
-import { use } from "react";
-import type { Card } from "../../types/cardtypes";
-import CardCard from './Card'
+import type { Card as CardType } from "../../types/cardTypes";
+import Card from "./Card";
 
-const Cards = ({ cardsPromise }: { cardsPromise: Promise<Card[]> }) => {
-const allCards = use(cardsPromise);
-  return(
-    <div className = "col-span-3 grid grid-cols-3 gap-5">
-      {allCards.length === 0 && <p>No Technologies Found</p>}
-      {allCards.map((singleCard) =>(
-        //<CardCard key={singleCard.id} card={singleCard}></CardCard>
-        <p>{singleCard.category}</p>
-      ))}
-      </div>
-  
+interface CardsProps {
+  cards: CardType[];
+  onAddToStack?: (card: CardType) => void;
+  selectedIds?: string[];
+}
+
+const Cards = ({ cards, onAddToStack, selectedIds = [] }: CardsProps) => {
+  return (
+    <div className="col-span-1 lg:col-span-3">
+      {cards.length === 0 ? (
+        <p className="text-gray-500 text-center py-10">No Technologies Found</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cards.map((singleCard) => (
+            <Card
+              key={singleCard.id}
+              card={singleCard}
+              onAddToStack={onAddToStack}
+              isAdded={selectedIds.includes(singleCard.id)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
 export default Cards;
+

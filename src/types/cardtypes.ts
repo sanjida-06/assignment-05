@@ -1,4 +1,4 @@
-export type card ={
+export type Card = {
   id: string;
   name: string;
   category: string;
@@ -7,5 +7,6 @@ export type card ={
   rating: number;
   difficulty: string;
   badge: string;
+};
 
-}
+export type card = Card;
