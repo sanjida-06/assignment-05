@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Navbar from "./components/shared/Navbar";
 import Hero from "./components/shared/Hero";
 import Footer from "./components/shared/Footer";
@@ -16,9 +17,11 @@ const App = () => {
       <Hero />
       <main>
         <section className='container mx-auto my-10'>
-          <div>
+          <div className='grid grid-cols-4 gap-5'>
             {/*cards component*/}
-            <Cards />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Cards cardsPromise={cardsPromise} />
+            </Suspense>
             {/*list component*/}
           </div>
           </section>
